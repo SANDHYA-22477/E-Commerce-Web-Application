@@ -1,0 +1,79 @@
+ {% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="card p-4 shadow text-center" style="max-width:500px; margin:auto;">
+        
+        <h1 class="mb-4">Receipt</h1>
+
+        <!-- PRODUCT IMAGE -->
+        {% if item.image %}
+            <img src="{{ item.image.url }}" width="250" height="250" class="mx-auto">
+        {% endif %}
+
+        <div class="mt-4">
+            <h3><b>Product:</b> {{ item.name }}</h3>
+            <h3><b>Price:</b> ₹<span id="price">{{ item.price }}</span></h3>
+        </div>
+
+        <hr>
+
+        <!-- QUANTITY -->
+        <div class="d-flex justify-content-center align-items-center mt-3">
+            <button class="btn btn-danger me-3" onclick="decreaseQty()">-</button>
+            <h3 id="qty">1</h3>
+            <button class="btn btn-success ms-3" onclick="increaseQty()">+</button>
+        </div>
+
+        <!-- TOTAL -->
+        <div class="mt-4">
+            <h2><b>Total:</b> ₹<span id="total">{{ item.price }}</span></h2>
+        </div>
+
+        <hr>
+ {% if i.model == "Home" %}
+    <a href="{% url 'home_payment' i.id %}" class="btn btn-primary">
+        Proceed Payment
+    </a>
+
+{% elif i.model == "Men" %}
+    <a href="{% url 'men_payment' i.id %}" class="btn btn-primary">
+        Proceed Payment
+    </a>
+
+{% elif i.model == "Women" %}
+    <a href="{% url 'women_payment' i.id %}" class="btn btn-primary">
+        Proceed Payment
+    </a>
+
+{% elif i.model == "Kids" %}
+    <a href="{% url 'kids_payment' i.id %}" class="btn btn-primary">
+        Proceed Payment
+    </a>
+{% endif %}
+
+    </div>
+</div>
+
+<!-- SCRIPT -->
+<script>
+    let quantity = 1;
+    let price = parseFloat("{{ item.price }}");
+
+    function increaseQty() {
+        quantity++;
+        document.getElementById("qty").innerText = quantity;
+        document.getElementById("total").innerText = quantity * price;
+    }
+
+    function decreaseQty() {
+        if(quantity > 1){
+            quantity--;
+            document.getElementById("qty").innerText = quantity;
+            document.getElementById("total").innerText = quantity * price;
+        }
+    }
+</script>
+
+{% endblock %}

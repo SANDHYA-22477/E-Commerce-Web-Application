@@ -1,0 +1,85 @@
+ {% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Orders</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'css/my_orders.css' %}">
+</head>
+
+<body>
+
+<div class="container mt-4">
+
+    <div class="row">
+
+        <!-- Sidebar -->
+        <div class="col-md-3">
+            <div class="sidebar">
+                <h4>My Account</h4>
+
+                <a href="{% url 'profile' %}">👤 Profile</a>
+                <a href="{% url 'orders' %}" class="active">📦 My Orders</a>
+                <a href="{% url 'wishlist' %}">💖 Wishlist</a>
+                <a href="{% url 'logout' %}">🚪 Logout</a>
+            </div>
+        </div>
+
+        <!-- Orders -->
+        <div class="col-md-9">
+
+            <h2 class="page-title">My Orders</h2>
+
+            {% for order in orders %}
+
+            <div class="order-card">
+
+                {% if order.product_image %}
+                    <img src="{{ order.product_image.url }}" class="order-img" alt="">
+                {% else %}
+                    <div class="order-img no-img">
+                        No Image
+                    </div>
+                {% endif %}
+
+                <div class="order-info">
+                    <h5>{{ order.product_name }}</h5>
+
+                    <p class="price">₹{{ order.price }}</p>
+
+                    <p><b>Quantity:</b> {{ order.quantity }}</p>
+
+                    <p><b>Total:</b> ₹{{ order.total_price }}</p>
+                </div>
+
+                <div class="order-meta">
+                    <p><b>Order ID:</b> #{{ order.id }}</p>
+
+                    <p>{{ order.order_date }}</p>
+
+                    <span class="status {{ order.status }}">
+                        {{ order.status }}
+                    </span>
+                </div>
+
+            </div>
+
+            {% empty %}
+
+            <div class="alert alert-info">
+                No orders found.
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

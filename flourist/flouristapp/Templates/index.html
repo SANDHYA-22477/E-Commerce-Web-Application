@@ -1,0 +1,55 @@
+ {% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container-fluid p-0">
+    <div class="banner">
+        <img src="/media/banner.jpg" alt="Banner">
+    </div>
+</div>
+
+<!-- CATEGORY SECTION -->
+<div class="container mt-5">
+  <div class="row">
+
+    <!-- Men -->
+    <div class="col-md-4">
+      <div class="card">
+        <img src="/media/home.jpg" class="card-img-top">
+        <div class="card-body text-center">
+          <h5>Men</h5>
+          <p>Explore latest men's fashion.</p>
+          <a href="{% url 'men' %}" class="btn btn-primary">Shop Now</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Women (optional, you can add later) -->
+    <div class="col-md-4">
+      <div class="card">
+        <img src="/media/home2.jpg" class="card-img-top">
+        <div class="card-body text-center">
+          <h5>Women</h5>
+          <p>Stylish women collection.</p>
+          <a href="{% url 'women' %}" class="btn btn-primary">Shop Now</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Kids -->
+    <div class="col-md-4">
+      <div class="card">
+        <img src="/media/home3.jpg" class="card-img-top">
+        <div class="card-body text-center">
+          <h5>Kids</h5>
+          <p>Cute and comfortable kids wear.</p>
+          <a href="{% url 'kids' %}" class="btn btn-primary">Shop Now</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

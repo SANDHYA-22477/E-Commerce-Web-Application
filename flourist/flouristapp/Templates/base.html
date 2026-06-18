@@ -1,0 +1,186 @@
+ {% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIFESTYLE</title>
+
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Bootstrap Icons -->
+<link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+<!-- CSS -->
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+
+
+    <!-- Logo -->
+    <a class="navbar-brand" href="{% url 'home' %}">
+        <img src="/media/logo.jpg" width="70" height="70" alt="Logo">
+    </a>
+
+    <!-- Menu -->
+    <div class="navbar-menu">
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'men' %}">Men</a>
+        <a href="{% url 'women' %}">Women</a>
+        <a href="{% url 'kids' %}">Kids</a>
+    </div>
+    
+ <div class="mx-auto text-center">
+    <div class="brand-title">
+        ✦ LIFESTYLE ✦
+    </div>
+</div>
+
+    <!-- Search -->
+    <form class="d-flex align-items-center ms-auto" method="GET" action="/search/">
+
+        <input class="form-control me-2"
+               type="search"
+               name="q"
+               placeholder="Search Products">
+
+        <button class="btn btn-light rounded-circle me-2" type="submit">
+            <img src="/media/serch.jpg" alt="Search" width="25" height="25">
+        </button>
+
+        <!-- Cart -->
+         <!-- Cart -->
+<a href="{% url 'my_cart' %}" class="btn btn-light rounded-circle me-2">
+    <img src="/media/cart.jpg" alt="Cart" width="25" height="25">
+</a>
+<!-- Account Dropdown -->
+<div class="dropdown">
+
+    <button class="btn btn-light dropdown-toggle d-flex align-items-center"
+            type="button"
+            data-bs-toggle="dropdown">
+
+        {% if user.is_authenticated %}
+
+            {% if user.profile.profile_image %}
+                <img src="{{ user.profile.profile_image.url }}"
+                     alt="Profile"
+                     width="40"
+                     height="40"
+                     style="border-radius:50%; object-fit:cover; margin-right:8px;">
+            {% else %}
+                <i class="bi bi-person-circle fs-4 me-2"></i>
+            {% endif %}
+
+            My Account
+
+        {% else %}
+
+            <i class="bi bi-person-fill me-2"></i>
+            My Account
+
+        {% endif %}
+
+    </button>
+
+    <ul class="dropdown-menu dropdown-menu-end">
+
+        {% if user.is_authenticated %}
+
+            <li>
+                <a class="dropdown-item" href="{% url 'profile' %}">
+                    👤 My Profile
+                </a>
+            </li>
+
+            <li>
+                <a class="dropdown-item" href="{% url 'orders' %}">
+                    📦 My Orders
+                </a>
+            </li>
+
+            <li>
+                <a class="dropdown-item" href="{% url 'wishlist' %}">
+                    💖 Wishlist
+                </a>
+            </li>
+
+            <li>
+                <a class="dropdown-item" href="{% url 'tracking' %}">
+                    🚚 Delivery Tracking
+                </a>
+            </li>
+
+            <li><hr class="dropdown-divider"></li>
+
+            <li>
+                <a class="dropdown-item" href="{% url 'logout' %}">
+                    🚪 Logout
+                </a>
+            </li>
+
+        {% else %}
+
+            <li>
+                <a class="dropdown-item" href="{% url 'login' %}">
+                    🔑 Login
+                </a>
+            </li>
+
+            <li>
+                <a class="dropdown-item" href="{% url 'register' %}">
+                    📝 Register
+                </a>
+            </li>
+
+        {% endif %}
+
+    </ul>
+
+</div>
+         
+
+
+
+</nav>
+
+<div class="container mt-4">
+    {% block content %}
+    {% endblock %}
+</div>
+
+ <footer class="footer mt-5">
+    <div class="footer-content">
+
+        <div class="footer-left">
+            <p>📞 Phone: +91 9876543210</p>
+            <p>📍 Location: Bangalore, India</p>
+        </div>
+
+        <div class="footer-right">
+            <img src="/media/inst.png" width="30" alt="Instagram">
+            <img src="/media/linkedin.png" width="30" alt="LinkedIn">
+            <img src="/media/twwiter.png" width="30" alt="Twitter">
+        </div>
+
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

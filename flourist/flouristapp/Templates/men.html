@@ -1,0 +1,58 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container-fluid p-0">
+    <div class="banner">
+        <img src="/media/banner.jpg" alt="Banner" class="img-fluid">
+    </div>
+</div>
+
+<div class="container mt-5">
+
+    <div class="row">
+
+        {% for i in post %}
+
+        <div class="col-md-4 mb-4">
+
+            <div class="card">
+
+                <img src="{{ i.image.url }}"
+                     class="card-img-top"
+                     height="250">
+
+                <div class="card-body text-center">
+
+                    <h5>{{ i.name }}</h5>
+
+                    <p>₹{{ i.price }}</p>
+ 
+                        <a href="{% url 'add_to_cart' 'Men' i.id %}" class="btn btn-primary mt-2">
+                           🛒 Add to Cart
+                        </a>
+                    
+                    
+                    <!-- WISHLIST -->
+                    <div class="wishlist-bottom">
+                        <a href="{% url 'add_to_wishlist' i.id 'men' %}" class="wishlist-text">
+                            ★ Add to Wishlist
+                        </a>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}
+```
