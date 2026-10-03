@@ -57,12 +57,15 @@
                type="search"
                name="q"
                placeholder="Search Products">
+ <button class="btn btn-light rounded-circle me-2" type="submit">
+    <img src="/media/serch.jpg" alt="Search" width="25" height="25">
+</button>
 
-        <button class="btn btn-light rounded-circle me-2" type="submit">
-            <img src="/media/serch.jpg" alt="Search" width="25" height="25">
-        </button>
+</form>
+<!-- SEARCH FORM CLOSED -->
 
-        <!-- Cart -->
+
+<!-- Cart -->
          <!-- Cart -->
 <a href="{% url 'my_cart' %}" class="btn btn-light rounded-circle me-2">
     <img src="/media/cart.jpg" alt="Cart" width="25" height="25">
@@ -181,6 +184,7 @@
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
+<!-- YOUR CUSTOM JS (IMPORTANT: ADD HERE) -->
+<script src="{% static 'js/chat.js' %}"></script>
 </body>
 </html>

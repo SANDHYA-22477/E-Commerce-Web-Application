@@ -35,9 +35,11 @@ urlpatterns = [
     path('women/', views.women, name='women'),
     path('kids/', views.kids, name='kids'),
 
-    # CART
-        path('add-to-cart/<str:model>/<int:id>/', views.add_to_cart, name='add_to_cart'),
-        path('my-cart/', views.my_cart, name='my_cart'),  
+        # CART
+    path('add-to-cart/<str:model>/<int:id>/', views.add_to_cart, name='add_to_cart'),
+    path('my-cart/', views.my_cart, name='my_cart'),
+
+
     # PAYMENT
     path('payment/men/<int:id>/', views.men_payment, name='men_payment'),
     path('payment/women/<int:id>/', views.women_payment, name='women_payment'),
@@ -67,6 +69,16 @@ urlpatterns = [
 
     # TRACKING
     path('tracking/', views.tracking, name='tracking'),
+
+         # AI CHAT
+    path('ai-chat/', views.ai_chat, name='ai_chat'),
+
+
+    path(
+    'scan-payment/<str:model_name>/<int:id>/',
+    views.scan_payment,
+    name='scan_payment'
+),
 ]
 
 # MEDIA + STATIC (ONLY ONCE)

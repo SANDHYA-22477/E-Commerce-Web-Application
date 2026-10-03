@@ -1,95 +1,106 @@
  {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
 
 <div class="container mt-5">
 
-    <div class="card p-4 shadow" style="max-width:550px; margin:auto; border-radius:15px;">
+    <div class="card shadow p-4" style="max-width:700px;margin:auto;border-radius:15px;">
 
-        <h1 class="text-center mb-4 text-success">
-            Payment Page
-        </h1>
+        <h2 class="text-center text-success mb-4">Secure Payment</h2>
 
         <div class="text-center">
-
-            <img src="{{ item.image.url }}"
-                 width="220"
-                 height="220"
-                 class="rounded">
-
+            <img src="{{ item.image.url }}" width="220" height="220" class="rounded">
             <h3 class="mt-3">{{ item.name }}</h3>
-
             <h4 class="text-primary">₹{{ item.price }}</h4>
-
         </div>
 
         <hr>
 
-        <form method="POST">
-            {% csrf_token %}
+        <h4>Select Payment Method</h4>
 
-            <div class="mb-3">
-                <label class="form-label">Name On Card</label>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="payment" onclick="goToScan()">
+            <label class="form-check-label">🟢 Google Pay</label>
+        </div>
 
-                <input type="text"
-                       class="form-control"
-                       placeholder="Enter Your Name"
-                       required>
-            </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="payment" onclick="goToScan()">
+            <label class="form-check-label">🟣 PhonePe</label>
+        </div>
 
-            <div class="mb-3">
-                <label class="form-label">Card Number</label>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="payment" onclick="showForm('card')">
+            <label class="form-check-label">💳 Card</label>
+        </div>
 
-                <input type="text"
-                       class="form-control"
-                       placeholder="1234 5678 9012 3456"
-                       required>
-            </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="payment" onclick="showForm('upi')">
+            <label class="form-check-label">🏦 UPI</label>
+        </div>
+
+        <div class="form-check mb-4">
+            <input class="form-check-input" type="radio" name="payment" onclick="showForm('cod')">
+            <label class="form-check-label">💵 Cash On Delivery</label>
+        </div>
+
+        <!-- CARD -->
+        <div id="card" style="display:none;">
+            <input class="form-control mb-2" placeholder="Name On Card">
+            <input class="form-control mb-2" placeholder="Card Number">
 
             <div class="row">
-
-                <div class="col-md-6 mb-3">
-                    <label class="form-label">Expiry Date</label>
-
-                    <input type="text"
-                           class="form-control"
-                           placeholder="MM/YY"
-                           required>
+                <div class="col">
+                    <input class="form-control" placeholder="MM/YY">
                 </div>
 
-                <div class="col-md-6 mb-3">
-                    <label class="form-label">CVV</label>
-
-                    <input type="password"
-                           class="form-control"
-                           placeholder="123"
-                           required>
+                <div class="col">
+                    <input class="form-control" placeholder="CVV">
                 </div>
-
             </div>
 
-            <div class="mb-3">
+            <button class="btn btn-success w-100 mt-3">Pay Now</button>
+        </div>
 
-                <label class="form-label">
-                    Delivery Address
-                </label>
+        <!-- UPI -->
+        <div id="upi" style="display:none;">
+            <input class="form-control mb-3" placeholder="example@okaxis">
 
-                <textarea class="form-control"
-                          rows="3"
-                          placeholder="Enter Delivery Address"
-                          required></textarea>
-
-            </div>
-
-            <button type="submit"
-                    class="btn btn-success w-100 mt-3">
+            <button class="btn btn-success w-100">
                 Pay Now
             </button>
+        </div>
 
-        </form>
+        <!-- COD -->
+        <div id="cod" style="display:none;">
+            <textarea class="form-control mb-3"
+                      rows="3"
+                      placeholder="Delivery Address"></textarea>
+
+            <button class="btn btn-success w-100">
+                Place Order
+            </button>
+        </div>
 
     </div>
 
 </div>
+
+<script>
+
+function goToScan(){
+    window.location.href="{% url 'scan_payment' model_name item.id %}";
+}
+
+function showForm(type){
+
+    document.getElementById("card").style.display="none";
+    document.getElementById("upi").style.display="none";
+    document.getElementById("cod").style.display="none";
+
+    document.getElementById(type).style.display="block";
+}
+
+</script>
 
 {% endblock %}

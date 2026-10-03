@@ -1,0 +1,73 @@
+ {% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <div class="card shadow p-4"
+         style="max-width:550px;margin:auto;border-radius:20px;">
+
+        <h2 class="text-center text-success">
+            Scan & Pay
+        </h2>
+
+        <hr>
+
+        <div class="text-center">
+
+            <img src="{{ item.image.url }}"
+                 width="180"
+                 class="rounded">
+
+            <h3 class="mt-3">
+                {{ item.name }}
+            </h3>
+
+            <h4 class="text-primary">
+                ₹{{ item.price }}
+            </h4>
+
+        </div>
+
+        <hr>
+
+        <h4 class="text-center">
+            Scan QR Code
+        </h4>
+
+
+        <div class="text-center mb-4">
+
+            <img src="/media/gog.jpg"
+                 width="250"
+                 class="img-fluid">
+
+            <p class="mt-3">
+                Scan using Google Pay, PhonePe, Paytm
+            </p>
+
+        </div>
+
+
+         <form method="POST" action="{% url 'scan_payment' model_name|lower item.id %}">
+    {% csrf_token %}
+
+    <button type="submit" 
+            name="pay_button"
+            class="btn btn-danger w-100">
+        TEST PROCEED PAY
+    </button>
+
+</form>
+            </button>
+
+
+        </form>
+
+
+    </div>
+
+</div>
+
+{% endblock %}
