@@ -62,7 +62,7 @@ ROOT_URLCONF = 'flourist.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-         'DIRS': [os.path.join(BASE_DIR, 'Templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'flouristapp', 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
