@@ -14,12 +14,16 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
- 
+"""
+URL configuration for flourist project.
+"""
+
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
 from flouristapp import views
 from django.conf import settings
-from django.conf.urls.static import static
+from django.views.static import serve
+
 
 urlpatterns = [
 
@@ -35,10 +39,9 @@ urlpatterns = [
     path('women/', views.women, name='women'),
     path('kids/', views.kids, name='kids'),
 
-        # CART
+    # CART
     path('add-to-cart/<str:model>/<int:id>/', views.add_to_cart, name='add_to_cart'),
     path('my-cart/', views.my_cart, name='my_cart'),
-
 
     # PAYMENT
     path('payment/men/<int:id>/', views.men_payment, name='men_payment'),
@@ -64,24 +67,34 @@ urlpatterns = [
 
     # WISHLIST
     path('wishlist/', views.wishlist, name='wishlist'),
-    path('wishlist/add/<int:id>/<str:model>/', views.add_to_wishlist, name='add_to_wishlist'),
-    path('wishlist/remove/<int:id>/', views.remove_wishlist, name='remove_wishlist'),
+    path('wishlist/add/<int:id>/<str:model>/',
+         views.add_to_wishlist,
+         name='add_to_wishlist'),
+    path('wishlist/remove/<int:id>/',
+         views.remove_wishlist,
+         name='remove_wishlist'),
 
     # TRACKING
     path('tracking/', views.tracking, name='tracking'),
 
-         # AI CHAT
+    # AI CHAT
     path('ai-chat/', views.ai_chat, name='ai_chat'),
 
-
+    # SCAN PAYMENT
     path(
-    'scan-payment/<str:model_name>/<int:id>/',
-    views.scan_payment,
-    name='scan_payment'
-),
+        'scan-payment/<str:model_name>/<int:id>/',
+        views.scan_payment,
+        name='scan_payment'
+    ),
 ]
 
-# MEDIA + STATIC (ONLY ONCE)
-# MEDIA + STATIC
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+# MEDIA FILES
+urlpatterns += [
+    re_path(
+        r'^media/(?P<path>.*)$',
+        serve,
+        {'document_root': settings.MEDIA_ROOT},
+    ),
+]
+ 
